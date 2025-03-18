@@ -3,31 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página com Conteúdo Incorporado</title>
+    <title>Página em Tela Cheia</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        body, html {
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+            overflow: hidden; /* Remove a barra de rolagem */
+            height: 100%;
         }
 
         iframe {
             width: 100%;
-            height: 100vh; /* Ocupa a altura total da tela */
+            height: 100vh; /* Ocupa 100% da altura da tela */
             border: none; /* Remove a borda do iframe */
+        }
+
+        .fullscreen-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000; /* Garante que o botão fique acima do iframe */
+        }
+
+        .fullscreen-btn:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <iframe src="https://doadoresdesangue.ong.br/localizacao/gpr" title="Conteúdo Incorporado"></iframe>
-    </div>
+    <!-- Iframe em tela cheia -->
+    <iframe src="https://doadoresdesangue.ong.br/localizacao/gpr" title="Conteúdo Incorporado"></iframe>
+
+    <!-- Botão para alternar tela cheia -->
+    <button class="fullscreen-btn" onclick="toggleFullscreen()">Tela Cheia</button>
+
+    <script>
+        // Função para alternar o modo de tela cheia
+        function toggleFullscreen() {
+            const iframe = document.querySelector('iframe');
+
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) { // Firefox
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari e Opera
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) { // IE/Edge
+                iframe.msRequestFullscreen();
+            }
+        }
+    </script>
 </body>
 </html>
